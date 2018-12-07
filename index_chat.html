@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <script type="text/javascript" src="controller/JS/jquery_1_11_1.js"></script>
+      <script type="text/javascript" src="controller/JS/socketio_2_2_0.js"></script>
+      <script type="text/javascript" src="controller/JS/niconico.js"></script>
+      <style>
+        #log {
+            width:90%;
+            height:800px;
+            font-size: 2em;
+            overflow:auto;
+            word-wrap: break-word;
+            text-shadow:
+            -2px -2px 0 white,
+            2px -2px 0 white,
+            -2px 2px 0 white,
+            2px 2px 0 white;
+        }
+      </style>
+
+    </head>
+<body>
+  <ul id="log"></ul>
+  <script>
+    var socket = io();
+    socket.on('chat', function(msg){
+      $("#log").append($('<li>').text(msg));
+      $("#log").scrollTop( $("#log")[0].scrollHeight );
+    });
+  </script>
+</body>
+</html>
