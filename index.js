@@ -32,6 +32,7 @@ require('date-utils') //現在時刻の取得に必要
 //LOG用の変数
 var good = 0
 var bad =0
+var warai =0
 var excelent =0
 var question =0
 var setsubun =0
@@ -85,6 +86,7 @@ else
         console.log("/IP:" + getIP(req) +"/Bad : " + bad);
     }
     else
+
 {
   if ( JSON.stringify(msg).match(/Excellent/) )
   {
@@ -100,10 +102,18 @@ else
   }
   else
 {
+  if ( JSON.stringify(msg).match(/Warai/) )
+  {
+      bad++;
+      console.log("/IP:" + getIP(req) +"/Warai : " + bad);
+  }
+  else
+  {
       setsubun++;
       console.log("/IP:" + getIP(req) +"/Setsubun : " + setsubun);
   }
 
+}
 }
 }
 }
