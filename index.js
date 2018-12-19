@@ -56,10 +56,11 @@ app.get('/comment', function (req, res) {
   const msg = extend({}, req.query)
 //  var dt = new Date()
   console.log("/IP:" + getIP(req) +'/comment: ' + JSON.stringify(msg))
-  if (msg.body == "SADASADA_counter_reset")
+  if (msg.body == "Counter_Reset")
     {
       good = 0;
       bad = 0;
+      warai =0
       setsubun = 0;
       question = 0;
     }
