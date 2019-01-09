@@ -20,6 +20,12 @@
       chartDraw("myChart_1") ;
       console.log("chartDraw");
     });
+    socket.on('comment', function(msg){
+        handleComment (msg) ;
+      });
+    socket.on('like', function(msg){
+        handleLike (msg) ;
+      });
   </script>
 </body>
 </html>
