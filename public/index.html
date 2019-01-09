@@ -16,8 +16,10 @@
   <script type="text/javascript" src="JS/qrcode.js"></script>
 
   <script>
-    // prevent user scroll on mobile phone
-    document.addEventListener('touchmove', function (e) { e.preventDefault() }, false)
+    document.addEventListener('DOMContentLoaded', function() {
+      FastClick.attach(document.body);
+      }, false);
+
     function handleSubmit (form) {
       const action = $(form).attr('action')
       const params = $(form).serialize()
@@ -37,10 +39,6 @@
           alert('failed to like.')
         })
     }
-
-    $(function () {
-      FastClick.attach(document.body)
-    })
   </script>
   <style>
     body {
