@@ -33,7 +33,6 @@ require('date-utils') //現在時刻の取得に必要
 var good = 0
 var bad =0
 var warai =0
-var excelent =0
 var question =0
 var setsubun =0
 
@@ -44,9 +43,13 @@ app.use("/controller",express.static(path.join(__dirname, 'public')))
 app.get("/display", function(req, res){
   res.sendFile(__dirname + '/index_nico-Display.html');
 });
-//出力側画面指定
+//出力側画面指定 チャット画面
 app.get("/chat", function(req, res){
   res.sendFile(__dirname + '/index_chat.html');
+});
+//出力側画面指定　グラフ画面
+app.get("/chart", function(req, res){
+  res.sendFile(__dirname + '/index_chart.html');
 });
 
 
@@ -60,7 +63,7 @@ app.get('/comment', function (req, res) {
     {
       good = 0;
       bad = 0;
-      warai =0
+      warai =0;
       setsubun = 0;
       question = 0;
     }
@@ -74,50 +77,33 @@ app.get('/comment', function (req, res) {
 app.get('/like', function (req, res) {
   const msg = extend({}, req.query);
   var dt = new Date()
-  if ( JSON.stringify(msg).match(/Good/) )
+  console.log("/IP:" + getIP(req) +'/like: ' + JSON.stringify(msg))
+  switch ( JSON.stringify(msg) )
 {
-    good++;
-    console.log("/IP:" + getIP(req) +"/Good : " + good);
+    case '{"image":"Good"}' : good++;
+     console.log(dt + "/IP:" + getIP(req) +"/Good : " + good);
+     break;
+    case '{"image":"Bad"}' : bad++;
+     console.log(dt + "/IP:" + getIP(req) +"/Bad : " + bad);
+     break;
+    case '{"image":"Warai"}' : warai++;
+     console.log(dt + "/IP:" + getIP(req) +"/Warai : " + warai);
+     break;
+    case '{"image":"Setsubun"}' : setsubun++;
+     console.log(dt + "/IP:" + getIP(req) +"/Setsubun : " + setsubun);
+     break;
+    case '{"image":"Question"}' : question++;
+     console.log(dt + "/IP:" + getIP(req) +"/Question : " + question);
+     break;
+    case '{"image":"Reset"}' : good=bad=warai=setsubun=question=0;
+     break;
+    default:
+     console.log("etc")
+     break;
 }
-else
-{
-    if ( JSON.stringify(msg).match(/Bad/) )
-    {
-        bad++;
-        console.log("/IP:" + getIP(req) +"/Bad : " + bad);
-    }
-    else
-
-{
-  if ( JSON.stringify(msg).match(/Excellent/) )
-  {
-      excellent++;
-      console.log("/IP:" + getIP(req) +"/Excellent : " + excellent);
-  }
-  else
-{
-  if ( JSON.stringify(msg).match(/Question/) )
-  {
-      question++;
-      console.log("/IP:" + getIP(req) +"/Question : " + question);
-  }
-  else
-{
-  if ( JSON.stringify(msg).match(/Warai/) )
-  {
-      bad++;
-      console.log("/IP:" + getIP(req) +"/Warai : " + bad);
-  }
-  else
-  {
-      setsubun++;
-      console.log("/IP:" + getIP(req) +"/Setsubun : " + setsubun);
-  }
-
-}
-}
-}
-}
+  var stamp_cnt = [[good],[bad],[warai],[setsubun]]
   io.emit('like', msg)
+  io.emit('chart', stamp_cnt)
+  console.log(stamp_cnt)
   res.end()
 })
