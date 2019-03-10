@@ -6,6 +6,8 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const extend = require('util')._extend
 
+var db_pass = require("./ignore/pass");
+
 http.listen(process.env.PORT || 2525, function(){
   console.log("PORT : " + process.env.PORT || 2525);
 });
@@ -94,6 +96,7 @@ app.get('/like', function (req, res) {
      break;
     case '{"image":"Question"}' : question++;
      console.log(dt + "/IP:" + getIP(req) +"/Question : " + question);
+     console.log(db_pass.database);
      break;
     case '{"image":"Reset"}' : good=bad=warai=setsubun=question=0;
      break;
