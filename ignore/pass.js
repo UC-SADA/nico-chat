@@ -1,3 +1,4 @@
+//　DataBase アクセス用のID　と　Pass　を入力
 module.exports ={
   database: 'test',
   user: 'test',
