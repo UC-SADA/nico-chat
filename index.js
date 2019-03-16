@@ -96,7 +96,7 @@ app.get('/like', function (req, res) {
      break;
     case '{"image":"Question"}' : question++;
      console.log(dt + "/IP:" + getIP(req) +"/Question : " + question);
-     console.log(db_pass.user);
+     console.log(db_pass.host);
 
      break;
     case '{"image":"Reset"}' : good=bad=warai=setsubun=question=0;
